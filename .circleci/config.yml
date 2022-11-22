@@ -58,3 +58,6 @@ workflows:
     jobs:
       - build_and_push_image:
           context: i9n-commons
+          filters:
+            branches:
+              only: master
