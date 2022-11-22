@@ -13,6 +13,8 @@ commands:
     parameters:
       imageProjectId:
         type: string
+      tagNumber:
+        type: string
 
     steps:
       - checkout
