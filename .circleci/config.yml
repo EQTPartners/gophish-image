@@ -1,0 +1,58 @@
+# Javascript Node.js CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+executors:
+  gcp:
+    docker:
+      - image: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
+
+commands:
+  build_and_pushimage:
+    parameters:
+      imageProjectId:
+        type: string
+
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          version: 19.03.13
+
+      - run:
+          name: Authenticate to GCP
+          command: |
+            source ./pipeline-scripts.sh
+            gcpAuthenticate ${GOOGLE_AUTH} << parameters.imageProjectId >> ${COMPUTE_ZONE}
+            gcloud auth configure-docker
+
+      - run:
+          name: Install tools
+          command: |
+            source ./pipeline-scripts.sh
+            download_and_install_kustomize
+
+      - run:
+          name: Build and push application container image
+          command: |
+            serverImageTag="eu.gcr.io/<< parameters.imageProjectId >>/${APP_NAME}-image:<< parameters.tagNumber >>"
+            docker build -t ${serverImageTag} --file Dockerfile .
+            docker push ${serverImageTag}
+
+
+
+jobs:
+  build_and_push_image:
+    executor: gcp
+    steps:
+      - build_image:
+          imageProjectId: "eqt-i9n-infra-test"
+          tagNumber: "4"
+
+workflows:
+  version: 2.1
+  build_and_deploy:
+    jobs:
+      - build_and_push_image:
+          context: i9n-commons
