@@ -50,7 +50,7 @@ jobs:
     steps:
       - build_and_push_image:
           imageProjectId: "eqt-i9n-infra-test"
-          tagNumber: "4"
+          tagNumber: "5"
 
 workflows:
   version: 2.1
