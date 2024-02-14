@@ -38,7 +38,7 @@ commands:
       - run:
           name: Build and push application container image
           command: |
-            serverImageTag="eu.gcr.io/<< parameters.imageProjectId >>/${APP_NAME}-image:<< parameters.tagNumber >>"
+            serverImageTag="europe-west1-docker.pkg.dev/<< parameters.imageProjectId >>/${APP_NAME}-repository/${APP_NAME}-image:<< parameters.tagNumber >>"
             docker build -t ${serverImageTag} --file Dockerfile .
             docker push ${serverImageTag}
 
@@ -49,8 +49,8 @@ jobs:
     executor: gcp
     steps:
       - build_and_push_image:
-          imageProjectId: "eqt-i9n-infra-test"
-          tagNumber: "4"
+          imageProjectId: "eqt-cicd-prod"
+          tagNumber: "5"
 
 workflows:
   version: 2.1
