@@ -19,6 +19,8 @@ workflows:
           buildtest: false
       - cicd/snykscan:
           context: gophish-test
+          dockerfile: Dockerfile
+          apptag: image
           filters:
             branches:
               only: master
