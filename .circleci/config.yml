@@ -10,7 +10,7 @@ workflows:
   build_and_deploy:
     jobs:
       - cicd/buildimage:
-          context: gophish-test
+          context: gophish
           dockerfile: Dockerfile
           dockertag: image
           filters:
@@ -18,7 +18,7 @@ workflows:
               only: master
           buildtest: false
       - cicd/snykscan:
-          context: gophish-test
+          context: gophish
           dockerfile: Dockerfile
           apptag: image
           filters:
