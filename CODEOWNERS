@@ -1,4 +1,4 @@
 # Unless a later match takes precedence,
-# @eqtpartners/tech_spet-sre will be requested for
+# @eqtpartners/sre will be requested for
 # review when someone opens a pull request for those production directories.
-*                @eqtpartners/tech_spet-sre @SunburstBot
+*                @eqtpartners/sre @SunburstBot
