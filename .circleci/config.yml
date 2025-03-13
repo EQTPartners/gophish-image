@@ -1,10 +1,6 @@
-# Javascript Node.js CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2.1
 orbs:
-  cicd: eqtpartners/cicd@3
+  cicd: eqtpartners/cicd@5
 
 workflows:
   build_and_deploy:
@@ -17,12 +13,3 @@ workflows:
             branches:
               only: master
           buildtest: false
-      - cicd/snykscan:
-          context: gophish
-          dockerfile: Dockerfile
-          apptag: image
-          filters:
-            branches:
-              only: master
-          requires:
-            - cicd/buildimage
